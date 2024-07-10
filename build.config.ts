@@ -1,5 +1,9 @@
+import { exec } from 'node:child_process'
+import { promisify } from 'node:util'
 import { defineBuildConfig } from 'unbuild'
 import builtins from 'builtin-modules'
+
+const execAsync = promisify(exec)
 
 export default defineBuildConfig({
   outDir: './dist',
@@ -20,11 +24,6 @@ export default defineBuildConfig({
     '@lezer/common',
     '@lezer/highlight',
     '@lezer/lr',
-    // UnoCSS
-    '@iconify/utils/lib/loader/fs',
-    '@iconify/utils/lib/loader/install-pkg',
-    '@iconify/utils/lib/loader/node-loader',
-    '@iconify/utils/lib/loader/node-loaders',
     // Builtins
     ...builtins,
   ],
@@ -43,5 +42,15 @@ export default defineBuildConfig({
     // dependencies that are inline implicitly external
     // by esbuild
     inlineDependencies: true,
+  },
+  hooks: {
+    'build:before': async () => {
+      await execAsync('rm -rf ./main.js')
+      await execAsync('rm -rf ./main.js.map')
+    },
+    'build:done': async () => {
+      await execAsync('cp ./dist/main.js ./main.js')
+      await execAsync('cp ./dist/main.js.map ./main.js.map')
+    },
   },
 })

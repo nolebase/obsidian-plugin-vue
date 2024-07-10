@@ -5,9 +5,12 @@ dictionaries: []
 words:
   - antfu
   - codemirror
+  - collab
+  - lezer
   - nolebase
   - Nólëbase
   - ofetch
+  - unocss
   - vueuse
 ignoreWords: []
 import: []
