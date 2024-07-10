@@ -30,6 +30,9 @@ export default defineBuildConfig({
   rollup: {
     esbuild: {
       format: 'cjs',
+      define: {
+        __DEV__: 'true',
+      },
     },
     output: {
       dir: './dist',

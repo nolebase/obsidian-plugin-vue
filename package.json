@@ -1,9 +1,9 @@
 {
-  "name": "obsidian-plugin-template",
+  "name": "obsidian-plugin-vue",
   "type": "module",
   "version": "0.1.0",
   "packageManager": "pnpm@9.5.0",
-  "description": "Obsidian Template Plugin",
+  "description": "An Obsidian plugin that enables you to use Vue.js components in your notes.",
   "author": {
     "name": "Nólëbase",
     "email": "nolebase@ayaka.moe",
@@ -11,15 +11,11 @@
   },
   "license": "MIT",
   "keywords": [
-    "nolebase",
-    "readabilities",
     "markdown",
     "nolebase-integration",
     "obsidian",
     "obsidian-plugin",
-    "unocss",
-    "tailwindcss",
-    "unocss-plugin"
+    "vue"
   ],
   "main": "./dist/main.js",
   "files": [
@@ -35,8 +31,21 @@
     "@types/node": "^20.14.10",
     "builtin-modules": "^3.3.0",
     "eslint": "^8.57.0",
+    "hast-util-to-html": "^9.0.1",
     "obsidian": "^1.5.7",
+    "rehype-format": "^5.0.0",
+    "rehype-minify-whitespace": "^6.0.0",
+    "rehype-raw": "^7.0.0",
+    "rehype-stringify": "^10.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.0",
     "typescript": "^5.5.3",
-    "unbuild": "^2.0.0"
+    "unbuild": "^2.0.0",
+    "unified": "^11.0.5",
+    "unist-util-remove": "^4.0.0",
+    "vue": "^3.4.31"
+  },
+  "dependencies": {
+    "remark-retext": "^6.0.0"
   }
 }
