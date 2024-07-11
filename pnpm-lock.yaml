@@ -17,12 +17,18 @@ importers:
       '@types/node':
         specifier: ^20.14.10
         version: 20.14.10
+      '@vue/compiler-sfc':
+        specifier: ^3.4.31
+        version: 3.4.31
       builtin-modules:
         specifier: ^3.3.0
         version: 3.3.0
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
+      hast-util-to-html:
+        specifier: ^9.0.1
+        version: 9.0.1
       obsidian:
         specifier: ^1.5.7
         version: 1.5.7(@codemirror/state@6.4.1)(@codemirror/view@6.28.4)
@@ -200,11 +206,6 @@ packages:
 
   '@babel/parser@7.23.6':
     resolution: {integrity: sha512-Z2uID7YJ7oNvAI20O9X0bblw7Qqs8Q2hFy0R9tAfnfLkp5MW0UH9eUvnDSnFwKZ0AvgS1ucqR4KzvVHgnke1VQ==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-
-  '@babel/parser@7.24.0':
-    resolution: {integrity: sha512-QuP/FxEAzMSjXygs8v4N9dvdXzEHN4W1oF3PxuWAtPo08UdM17u89RDMgjLn/mlc56iM0HlLmVkO/wgR+rDgHg==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -2710,10 +2711,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.23.6
 
-  '@babel/parser@7.24.0':
-    dependencies:
-      '@babel/types': 7.24.0
-
   '@babel/parser@7.24.7':
     dependencies:
       '@babel/types': 7.24.7
@@ -2729,7 +2726,7 @@ snapshots:
   '@babel/template@7.24.0':
     dependencies:
       '@babel/code-frame': 7.23.5
-      '@babel/parser': 7.24.0
+      '@babel/parser': 7.24.7
       '@babel/types': 7.24.0
 
   '@babel/traverse@7.23.6':
@@ -3451,12 +3448,12 @@ snapshots:
   css-tree@2.2.1:
     dependencies:
       mdn-data: 2.0.28
-      source-map-js: 1.0.2
+      source-map-js: 1.2.0
 
   css-tree@2.3.1:
     dependencies:
       mdn-data: 2.0.30
-      source-map-js: 1.0.2
+      source-map-js: 1.2.0
 
   css-what@6.1.0: {}
 

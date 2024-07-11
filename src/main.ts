@@ -2,12 +2,14 @@ import { Plugin } from 'obsidian'
 import type { EditorView, PluginValue, ViewUpdate } from '@codemirror/view'
 import { ViewPlugin } from '@codemirror/view'
 import { type App, createApp, defineComponent, h } from 'vue'
+import { compileTemplate } from '@vue/compiler-sfc'
 
 import { unified } from 'unified'
 import RemarkParse from 'remark-parse'
 import RemarkRehype from 'remark-rehype'
 import RehypeRaw from 'rehype-raw'
 import { remove } from 'unist-util-remove'
+import { toHtml } from 'hast-util-to-html'
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -60,8 +62,26 @@ class VueViewPlugin implements PluginValue {
       .use(() => tree => remove(tree, (node, _, parent) => parent?.type === 'root' && node.type === 'text'))
       .run(parsedMarkdownAst)
 
-    // eslint-disable-next-line no-console
-    console.log('transformedHast', transformedHast)
+    let index = 0
+    for (const node of transformedHast.children) {
+      index++
+
+      const componentTemplateStr = toHtml(node)
+
+      const { code, errors } = compileTemplate({
+        isProd: false,
+        source: componentTemplateStr,
+        filename: `some-${index}`,
+        id: index.toString(),
+      })
+      if (errors.length) {
+        console.error(errors)
+        throw new Error('Failed to compile template')
+      }
+
+      // eslint-disable-next-line no-console
+      console.log(code)
+    }
 
     this.vueInstance?.unmount()
 
