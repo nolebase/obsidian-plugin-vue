@@ -8,9 +8,6 @@ import RemarkParse from 'remark-parse'
 import RemarkRehype from 'remark-rehype'
 import RehypeRaw from 'rehype-raw'
 import { remove } from 'unist-util-remove'
-// import RehypeMinifyWhitespace from 'rehype-minify-whitespace'
-import RehypeFormat from 'rehype-format'
-import { toHtml } from 'hast-util-to-html'
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -53,29 +50,18 @@ class VueViewPlugin implements PluginValue {
 
     const parsedMarkdownAst = await unified()
       .use(RemarkParse)
+      .use(() => tree => remove(tree, 'heading'))
       .parse(this.view.state.doc.toString())
 
     const transformedHast = await unified()
       .use(RemarkRehype, { allowDangerousHtml: true })
-      // .use(() => { return tree => remove(tree, 'text') })
-      // .use(() => { return tree => console.log('remark-rehype', { ...tree }) })
-      // .use(RehypeMinifyWhitespace)
-      // .use(() => { return tree => console.log('rehype-minify-whitespace', { ...tree }) })
-      .use(() => { return tree => remove(tree, 'text') })
-      .use(RehypeFormat)
-      .use(() => { return tree => console.log('rehype-format', JSON.parse(JSON.stringify(tree))) })
+      .use(() => tree => remove(tree, 'text'))
       .use(RehypeRaw)
-      // .use(() => { return tree => console.log('rehype-raw', { ...tree }) })
-      // .use(() => {
-      //   return (tree) => {
-      //     remove(tree, 'heading')
-      //     remove(tree, 'text')
-      //   }
-      // })
+      .use(() => tree => remove(tree, (node, _, parent) => parent?.type === 'root' && node.type === 'text'))
       .run(parsedMarkdownAst)
 
-    const htmlBlocks = transformedHast.children.map(node => toHtml(node))
-    console.log(htmlBlocks)
+    // eslint-disable-next-line no-console
+    console.log('transformedHast', transformedHast)
 
     this.vueInstance?.unmount()
 
