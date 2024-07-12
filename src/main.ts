@@ -2,6 +2,7 @@ import { Plugin } from 'obsidian'
 import type { EditorView, PluginValue, ViewUpdate } from '@codemirror/view'
 import { ViewPlugin } from '@codemirror/view'
 import { type App, createApp, defineComponent, h } from 'vue'
+import * as Vue from 'vue'
 import { compileTemplate } from '@vue/compiler-sfc'
 
 import { unified } from 'unified'
@@ -10,6 +11,8 @@ import RemarkRehype from 'remark-rehype'
 import RehypeRaw from 'rehype-raw'
 import { remove } from 'unist-util-remove'
 import { toHtml } from 'hast-util-to-html'
+
+import { evaluateAnyModule } from './import'
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -40,6 +43,8 @@ class VueViewPlugin implements PluginValue {
 
   async init() {
     await this.waitForViewDOM()
+    const anyGlobalThis = globalThis as any
+    anyGlobalThis.Vue = Vue
 
     // eslint-disable-next-line no-console
     console.log('view ready', this.view.dom)
@@ -49,6 +54,8 @@ class VueViewPlugin implements PluginValue {
       vueDom = this.view.dom.querySelector('.cm-scroller .cm-sizer')!.createDiv()
       vueDom.classList.add('.obsidian-plugin-vue')
     }
+
+    this.vueInstance?.unmount()
 
     const parsedMarkdownAst = await unified()
       .use(RemarkParse)
@@ -63,6 +70,8 @@ class VueViewPlugin implements PluginValue {
       .run(parsedMarkdownAst)
 
     let index = 0
+    const renderFunctions: Array<() => void> = []
+
     for (const node of transformedHast.children) {
       index++
 
@@ -73,22 +82,26 @@ class VueViewPlugin implements PluginValue {
         source: componentTemplateStr,
         filename: `some-${index}`,
         id: index.toString(),
+        compilerOptions: {
+          mode: 'function',
+        },
       })
       if (errors.length) {
         console.error(errors)
         throw new Error('Failed to compile template')
       }
 
-      // eslint-disable-next-line no-console
-      console.log(code)
-    }
+      const res = await evaluateAnyModule<() => void>(code)
+      if (!res)
+        continue
 
-    this.vueInstance?.unmount()
+      renderFunctions.push(res)
+    }
 
     const comp = defineComponent({
       setup() {
         return () => [
-          h('div', 'Hello World'),
+          h('div', { class: 'obsidian-plugin-vue' }, renderFunctions.map(fn => fn())),
         ]
       },
     })
