@@ -1,6 +1,6 @@
 {
   "id": "obsidian-plugin-vue",
-  "name": "Obsidian Vue Plugin",
+  "name": "Vue",
   "version": "0.1.0",
   "minAppVersion": "1.4.0",
   "description": "An Obsidian plugin that enables you to use Vue.js components in your notes.",

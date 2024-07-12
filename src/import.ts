@@ -47,7 +47,7 @@ const importRegex = /\bimport\s*\(/g
 const importAsRegex = /(\w+)\s+as\s+(\w+)/g
 
 // https://github.com/unocss/unocss/blob/main/packages/shared-docs/src/config.ts
-export async function evaluateAnyModule<T = any>(configCode: string): Promise<T | undefined> {
+export async function evaluateAnyModule<T>(configCode: string): Promise<T | undefined> {
   const transformedCode = configCode
     .replace(importUnocssRegex, 'const $1 = await __import("unocss");')
     .replace(importObjectRegex, (match, p1, p2, p3) => {
