@@ -16,7 +16,7 @@ interface ObsidianPluginManifest {
 }
 
 export async function generateObsidianPluginManifest() {
-  const unocssManifest = {
+  const vueManifest = {
     id: 'obsidian-plugin-vue',
     name: 'Vue',
     version: packageJSON.version,
@@ -27,5 +27,5 @@ export async function generateObsidianPluginManifest() {
     isDesktopOnly: false,
   } satisfies ObsidianPluginManifest
 
-  await writeFile(join(cwd(), 'dist', 'manifest.json'), JSON.stringify(unocssManifest, null, 2))
+  await writeFile(join(cwd(), 'dist', 'manifest.json'), JSON.stringify(vueManifest, null, 2))
 }
