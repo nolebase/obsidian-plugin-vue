@@ -50,9 +50,11 @@ export default defineBuildConfig({
     inlineDependencies: true,
   },
   hooks: {
-    'build:done': async () => {
+    'build:before': async () => {
       await toErrorable(async () => await rm(join(cwd(), 'main.js')))
       await toErrorable(async () => await rm(join(cwd(), 'manifest.json')))
+    },
+    'build:done': async () => {
       await generateObsidianPluginManifest()
       await copyFile(join(cwd(), 'dist', 'main.js'), join(cwd(), 'main.js'))
       await copyFile(join(cwd(), 'dist', 'manifest.json'), join(cwd(), 'manifest.json'))
