@@ -1,16 +1,16 @@
-import { Plugin } from 'obsidian'
 import type { EditorView, PluginValue, ViewUpdate } from '@codemirror/view'
 import { ViewPlugin } from '@codemirror/view'
-import { type App, createApp, defineComponent, h } from 'vue'
-import * as Vue from 'vue'
 import { compileTemplate } from '@vue/compiler-sfc'
+import { toHtml } from 'hast-util-to-html'
+import { Plugin } from 'obsidian'
+import RehypeRaw from 'rehype-raw'
 
-import { unified } from 'unified'
 import RemarkParse from 'remark-parse'
 import RemarkRehype from 'remark-rehype'
-import RehypeRaw from 'rehype-raw'
+import { unified } from 'unified'
 import { remove } from 'unist-util-remove'
-import { toHtml } from 'hast-util-to-html'
+import { type App, createApp, defineComponent, h } from 'vue'
+import * as Vue from 'vue'
 
 import { evaluateAnyModule } from './import'
 
