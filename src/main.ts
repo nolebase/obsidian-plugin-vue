@@ -1,18 +1,18 @@
 import type { EditorView, PluginValue, ViewUpdate } from '@codemirror/view'
 import { ViewPlugin } from '@codemirror/view'
+import { evaluate } from '@unrteljs/eval/browser'
 import { compileTemplate } from '@vue/compiler-sfc'
 import { toHtml } from 'hast-util-to-html'
 import { Plugin } from 'obsidian'
-import RehypeRaw from 'rehype-raw'
 
+import RehypeRaw from 'rehype-raw'
 import RemarkParse from 'remark-parse'
 import RemarkRehype from 'remark-rehype'
 import { unified } from 'unified'
 import { remove } from 'unist-util-remove'
 import { type App, createApp, defineComponent, h } from 'vue'
-import * as Vue from 'vue'
 
-import { evaluateAnyModule } from './import'
+import * as Vue from 'vue'
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -91,7 +91,7 @@ class VueViewPlugin implements PluginValue {
         throw new Error('Failed to compile template')
       }
 
-      const res = await evaluateAnyModule<() => void>(code)
+      const res = await evaluate<() => void>(code)
       if (!res)
         continue
 
