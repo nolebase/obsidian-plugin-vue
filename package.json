@@ -34,6 +34,7 @@
     "@unrteljs/eval": "^0.0.5",
     "@vue/compiler-sfc": "^3.5.14",
     "builtin-modules": "^5.0.0",
+    "bumpp": "^10.1.0",
     "eslint": "^9.26.0",
     "hast-util-to-html": "^9.0.5",
     "obsidian": "^1.8.7",

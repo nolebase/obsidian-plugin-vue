@@ -22,7 +22,7 @@ export async function generateObsidianPluginManifest() {
     version: packageJSON.version,
     minAppVersion: '1.4.0',
     description: 'An Obsidian plugin that enables you to use Vue.js components in your notes.',
-    author: 'Nolebase',
+    author: 'Nólëbase',
     authorUrl: 'https://github.com/nolebase',
     isDesktopOnly: false,
   } satisfies ObsidianPluginManifest
