@@ -1,7 +1,7 @@
 {
   "name": "obsidian-plugin-vue",
   "type": "module",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "packageManager": "pnpm@10.11.1",
   "description": "An Obsidian plugin that enables you to use Vue.js components in your notes.",
   "author": {
