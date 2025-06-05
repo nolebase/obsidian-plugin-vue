@@ -27,5 +27,5 @@ export async function generateObsidianPluginManifest() {
     isDesktopOnly: false,
   } satisfies ObsidianPluginManifest
 
-  await writeFile(join(cwd(), 'dist', 'manifest.json'), JSON.stringify(vueManifest, null, 2))
+  await writeFile(join(cwd(), 'dist', 'manifest.json'), `${JSON.stringify(vueManifest, null, 2)}\n`, 'utf-8')
 }
