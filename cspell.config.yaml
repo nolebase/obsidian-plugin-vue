@@ -15,5 +15,6 @@ words:
   - Rehype
   - unocss
   - vueuse
+  - unrtel
 ignoreWords: []
 import: []

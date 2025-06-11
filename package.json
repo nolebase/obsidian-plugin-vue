@@ -2,7 +2,7 @@
   "name": "obsidian-plugin-vue",
   "type": "module",
   "version": "0.1.2",
-  "packageManager": "pnpm@10.11.1",
+  "packageManager": "pnpm@10.12.1",
   "description": "An Obsidian plugin that enables you to use Vue.js components in your notes.",
   "author": {
     "name": "Nólëbase",
@@ -25,23 +25,26 @@
     "build": "unbuild",
     "lint": "eslint --cache .",
     "lint:fix": "eslint --cache --fix .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "up": "taze -w -r -I -f && pnpm prune && pnpm dedupe"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.13.3",
+    "@antfu/eslint-config": "^4.14.1",
     "@codemirror/view": "^6.37.1",
-    "@types/node": "^22.15.29",
-    "@unrteljs/eval": "^0.1.0",
+    "@types/node": "^22.15.31",
+    "@unrteljs/eval": "^0.2.1",
     "@vue/compiler-sfc": "^3.5.16",
     "builtin-modules": "^5.0.0",
     "bumpp": "^10.1.1",
     "eslint": "^9.28.0",
+    "eslint-plugin-import-x": "^4.15.1",
     "hast-util-to-html": "^9.0.5",
     "obsidian": "^1.8.7",
     "rehype-raw": "^7.0.0",
     "rehype-stringify": "^10.0.1",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
+    "taze": "^19.1.0",
     "typescript": "^5.8.3",
     "unbuild": "^3.5.0",
     "unified": "^11.0.5",
@@ -50,6 +53,7 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "esbuild",
       "unrs-resolver"
     ]
   }

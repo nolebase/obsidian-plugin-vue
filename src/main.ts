@@ -1,10 +1,10 @@
 import type { EditorView, PluginValue, ViewUpdate } from '@codemirror/view'
 import type { App } from 'vue'
+
 import { ViewPlugin } from '@codemirror/view'
 import { evaluate } from '@unrteljs/eval/browser'
 import { compileTemplate } from '@vue/compiler-sfc'
 import { toHtml } from 'hast-util-to-html'
-
 import { Plugin } from 'obsidian'
 import RehypeRaw from 'rehype-raw'
 import RemarkParse from 'remark-parse'
@@ -12,7 +12,6 @@ import RemarkRehype from 'remark-rehype'
 import { unified } from 'unified'
 import { remove } from 'unist-util-remove'
 import { createApp, defineComponent, h } from 'vue'
-
 import * as Vue from 'vue'
 
 function sleep(ms: number) {
